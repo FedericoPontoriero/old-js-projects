@@ -1,2 +1,3 @@
 let hola = 'hola';
-console.log(hola)
+let comoEstas = 'Cómo estás?';
+console.log(`${hola}, ${comoEstas}`);
