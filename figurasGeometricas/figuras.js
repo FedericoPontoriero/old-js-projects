@@ -65,3 +65,20 @@ function areaCirculo()
     resultado = Math.PI * (radio**2);
     resultadoCirculo.textContent = `El área del círculo es ${parseFloat(resultado.toFixed(4))} cm^2`
 }
+function areaTrianguloIsosceles(ladoA, ladoB, ladoBase)
+{
+    if (ladoA != ladoB)
+    {
+        resultado.TrianguloIsosceles = "El triángulo no es isósceles";
+    }
+    else
+    {
+        const baseRectangulo;
+        const alturaTriangulo;
+        baseRectangulo = ladoBase / 2;
+        alturaTriangulo = Math.sqrt(ladoB**2 - baseRectangulo**2);
+        resultado = (baseRectangulo * alturaTriangulo) / 2;
+        resultado.TrianguloIsosceles = `El área del triángulo isósceles es ${parseInt(resultado)}`;
+    }
+}
+areaTrianguloIsosceles(13, 13, 16);
