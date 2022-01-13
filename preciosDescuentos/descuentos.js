@@ -40,3 +40,4 @@ if (!userCoupon) {
     const resultP = document.getElementById("ResultP");
     resultP.innerText = "El precio con descuento son: $" + precioConDescuento;
 }
+
