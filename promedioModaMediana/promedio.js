@@ -64,4 +64,4 @@ function aggInput () {
     button.insertAdjacentHTML('beforeend', '<button type="button" onclick="calcularMediaAritmetica()">Calcular</button>');
 }
 
-// const getAverage = (arr) => arr.reduce((a, b) => a + b) / arr.length;
+// const getAverage = (arr) => arr.reduce((a, b) => a + b) / arr.length; 
