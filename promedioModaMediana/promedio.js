@@ -65,4 +65,5 @@ function aggInput () {
 }
 
 // const getAverage = (arr) => arr.reduce((a, b) => a + b) / arr.length; 
-// Hola que tal
+
+
