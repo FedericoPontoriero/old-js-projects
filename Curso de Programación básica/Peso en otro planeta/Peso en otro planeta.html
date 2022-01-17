@@ -1,0 +1,47 @@
+<!DOCTYPE html> <!-- ! + tab = Estructura básica de HTML-->
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Peso en otro planeta</title>
+        <style type="text/css">
+            body
+            {
+                background-color: green;
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            strong
+            {
+                color: red; /* Aquí puedes escribir tu comentario */
+                font-size: larger;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Tu peso en otro planeta</h1> <!-- Aquí puedes escribir tu comentario -->
+        <p>En la tierra pesas distinto que en Marte o en Jupiter</p>
+        <p>Para eso nos tienes que indicar <strong>tu peso</strong></p>
+        <script type="text/javascript">
+            var planeta = prompt("Elige tu planeta \n 1 es Marte, 2 es Jupiter.");
+            const g_tierra = 9.8;
+            const g_marte = 3.7;
+            const g_jupiter = 24.8;
+            var peso = prompt("Dinos tu peso actual");
+            var peso_final;
+            var nombre; // Comentario
+            if(planeta == 1)
+            {
+                peso_final = peso * g_marte / g_tierra;
+                nombre = "Marte";
+            }
+            else if(planeta == 2)
+            {
+                peso_final = peso * g_jupiter / g_tierra
+                nombre = "Jupiter";
+            }
+            peso_final = parseFloat(peso_final);
+            peso_final = (peso_final.toFixed(2));
+            document.write("Si tu peso en la tierra es de " + peso + " entonces... tu peso en " + nombre + " es " + peso_final);
+        </script>
+    </body>
+</html>
