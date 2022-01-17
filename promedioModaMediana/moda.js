@@ -1,12 +1,9 @@
-const array = document.getElementsByName("inputArray[]");
-lista = array.value;
-function calcularModa()
-{
-
+//const array = document.getElementsByName("inputArray[]");
+//lista = array.value;
+let lista = [1,2,3,1,2,3,3,3,4,3,3,2,3,3,4];
+const listaCount = {};
     
-    const listaCount = {};
-    
-    [lista].map
+    lista.map
     (
         function (elemento)
         {
@@ -29,5 +26,5 @@ function calcularModa()
             );
             
             const moda = listaArray[listaArray.length -1];
-            return resultado.textContent = `La moda de ese conjunto de números es ${moda}`;
-        }
+            console.log(`La moda del conjunto de números es ${moda[0]}, que se repite ${moda[1]} veces`);
+            //return resultado.textContent = `La moda de ese conjunto de números es ${moda}`;
