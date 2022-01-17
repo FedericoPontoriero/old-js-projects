@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Muli&display=swap');
+
+*
+{
+    box-sizing: border-box; 
+}
+
+body
+{
+    font-family: 'Muli', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+.container
+{
+    display: flex; /* Por defecto row */
+    width: 90vw; /* Para que no ocupe todo el viewport */
+}
+
+.panel
+{
+    background-size: cover 100%; /* Para poder poner bordes redondeados. Auto sino. */
+    background-position: center;
+    background-repeat: no-repeat; 
+    height: 80vh;
+    border-radius: 50px; /* Bordes redondeados */
+    color: white;
+    cursor: pointer;
+    flex: 0.5;
+    margin: 10px;
+    position: relative; /* Para poner el texto en absolute */
+    transition: flex 0.7s ease-in;
+}
+
+.panel h3
+{
+    font-size: 24px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    margin: 0;
+    opacity: 0; /* Para que no aparezcan cuando está inactivo */
+}
+
+.panel.active
+{
+    flex: 5;
+}
+
+.panel.active h3
+{
+    opacity: 1;
+    transition: opacity 0.3s ease-in 0.4s;
+}
+
+@media(max-width: 480px) /* Si la pantalla es menor a 480px: */
+{
+    .container
+    {
+        width: 100vw;
+    }
+    .panel:nth-of-type(4),.panel:nth-of-type(5) /* No muestra los elementos 4 o 5 */
+    {
+        display: none;
+    }
+}
