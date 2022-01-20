@@ -43,3 +43,10 @@ const mediana = array => {
 }
 
 console.log(`La mediana es: ${mediana(ordenarSalarios)}`);
+
+const spliceStart = parseInt((ordenarSalarios.length * 90) / 100);
+const spliceCount = parseInt(ordenarSalarios.length - spliceStart);
+const sueldos10 = ordenarSalarios.splice(spliceStart, spliceCount);
+const sueldoTop10 = mediana(sueldos10);
+
+console.log(sueldoTop10);
