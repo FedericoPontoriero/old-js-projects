@@ -93,9 +93,9 @@ showToDo(myToDo);
 
 class User
 {
-    private name: string;
-    public email: string;
-    protected age: number;
+    name: string;
+    email: string;
+    age: number;
 
     constructor(
         name: string,
@@ -133,8 +133,8 @@ console.log(juan.ageInYears());
 
 class Members extends User
 {
-    id: number;
-    constructor(id, name, email, age)
+    id!: number;
+    constructor(id: number, name: string, email: string, age: number)
     {
         super(name, email, age);
     }
@@ -145,3 +145,11 @@ class Members extends User
 
 let miguel = new Members(1, 'miguel', 'miguel@mail.com', 24);
 miguel.payInVoice;
+
+// Enums
+
+enum Role { ADMIN, READ_ONLY, AUTHOR };
+
+// Function types
+
+let functionType: (a:number, b:number) => number;
