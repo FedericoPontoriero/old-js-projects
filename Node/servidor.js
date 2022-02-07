@@ -19,8 +19,36 @@ const express = require('express');
 const colors = require('colors');
 const server = express();
 
-server.get('/', function (req, res) {
-  res.send('<h1>Hola Mundo </h1>');
+server.use(express.json);
+
+server.all('/user', (req, res, next) => {
+  res.send('finished');
+  next();
+})
+
+server.get('/user', function (req, res) {
+  res.json({
+    name: 'Miguel',
+    lastName: 'Hernandez'
+  });
+  res.end;
+})
+
+server.post('/user/:id', function (req, res) {
+  console.log(req.body);
+  console.log(req.params);
+  res.send('recibido');
+  res.end;
+})
+
+server.put('/user/:id', function (req, res) {
+  console.log(req.body)
+  res.send(`User ${req.params.id} updated`);
+  res.end;
+})
+
+server.delete('/user/:id', function (req, res) {
+  res.send(`User ${req.params.id} deleted`);
   res.end;
 })
 
