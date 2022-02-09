@@ -17,13 +17,32 @@
 // Con express
 const express = require('express');
 const colors = require('colors');
+const morgan = require('morgan');
 const server = express();
 
-server.use(express.json);
+// function logger(req, res, next) {
+//   console.log(`Route: ${req.protocol}://${req.get('host')} ${req.originalUrl}`);
+//   next();
+// } Sin morgan
 
+// Settings
+server.set('appName', 'Express tutorial');
+server.set('port', 3000);
+server.set('view engine', 'ejs');
+
+// Middlewares
+server.use(express.json);
+server.use(morgan('dev'));
+
+// Routes
 server.all('/user', (req, res, next) => {
   res.send('finished');
   next();
+})
+
+server.get('/', (req, res) => {
+  const data = [{name: 'Alberto'}, {name: 'Roberto'}, {name: 'Adalberto'}];
+  res.render('index.ejs', {personas: data});
 })
 
 server.get('/user', function (req, res) {
@@ -52,7 +71,9 @@ server.delete('/user/:id', function (req, res) {
   res.end;
 })
 
+server.use(express.static('public'))
 server.listen(3000, () => {
-  console.log('Server on port 3000'.red);
+  console.log(app.get('appName'));
+  console.log(`Server on port ${server.get('port')}`.red);
 });
 
