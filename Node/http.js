@@ -18,10 +18,12 @@ const server = http.createServer((req, res) => {
 			{
 				name: "Fernando",
 				age: 40,
+				email: "fernando@gmail.com",
 			},
 			{
 				name: "Fernanda",
 				age: 30,
+				email: "fernanda@gmail.com",
 			},
 		];
 		res.writeHead(200, { "Content-Type": "application/json" });
