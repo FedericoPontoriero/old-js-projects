@@ -24,6 +24,7 @@ fs.readFile(path.join(__dirname, "/test", "hello.txt"), "utf8", (err, data) => {
 	console.log(data);
 });
 // Rename file from hello.txt to helloworld.txt
+
 fs.rename(
 	path.join(__dirname, "/test", "hello.txt"),
 	path.join(__dirname, "/test", "helloworld.txt"),
