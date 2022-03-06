@@ -60,7 +60,7 @@ server.get("/user", function (req, res) {
 server.post("/user/:id", function (req, res) {
 	console.log(req.body);
 	console.log(req.params);
-	res.send("recibido");
+	res.send("received");
 	res.end;
 });
 
