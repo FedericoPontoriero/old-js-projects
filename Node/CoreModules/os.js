@@ -3,7 +3,7 @@ const os = require("os");
 // Platform
 console.log(os.platform());
 
-// CPU Arquitecture
+// CPU Architecture
 console.log(os.arch());
 
 // CPU Core Info
