@@ -59,3 +59,4 @@ function addGlobalEventListener(type, selector, callback) {
 addGlobalEventListener("click", "div", (e) => {
 	console.log("Hi");
 });
+// Use array manipulation methods && apply them to React && other libraries
