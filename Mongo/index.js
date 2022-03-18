@@ -17,7 +17,7 @@ client.connect(async (err) => {
 					$gt: 4,
 				},
 				price: {
-					$lt: 400,
+					$lt: 500,
 				},
 				amenities: "Hair dryer",
 			},
