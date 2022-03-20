@@ -48,3 +48,4 @@ router.delete("/:id", (req, res) => {
 });
 
 module.exports = router;
+// This is the main route of the api
