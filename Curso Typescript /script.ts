@@ -38,6 +38,8 @@ function sum(num1: number, num2: number): number {
 }
 
 let mySum = function (num1: number | string, num2: number | string): number {
+	// : indica el type del return de la función.
+	// Formatea el input convirtiendo los strings a números
 	if (typeof num1 === "string") {
 		num1 = parseInt(num1);
 	}
