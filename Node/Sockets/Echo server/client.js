@@ -26,5 +26,6 @@ socket.on("data", (data) => {
 });
 
 socket.on("close", () => {
+	// This is for windows
 	process.exit(0);
 });
