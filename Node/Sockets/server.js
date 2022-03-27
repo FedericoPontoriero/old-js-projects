@@ -67,7 +67,7 @@ const main = () => {
 	port = Number(port);
 	listen(port);
 };
-
+// requerido para los casos de importación
 if (require.main === module) {
 	main();
 }
