@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>File uploads</title>
+	</head>
+	<body>
+		<div class="container w-50">
+			<h1 class="text-center my-4">Upload images here</h1>
+			<h3 class="mt-5 mb-2">Single upload</h3>
+			<div class="custom-file">
+				<form
+					action="/uploadSingle"
+					class="form-control"
+					enctype="multipart/form-data"
+					method="post"
+				>
+					<input type="file" name="singleImage" class="custom-file-input" />
+					<label for="customFile" class="custom-file-label">Choose image</label>
+					<input
+						type="submit"
+						class="btn btn-success btn-block my-2"
+						value="Upload image"
+					/>
+				</form>
+			</div>
+
+			<h3 class="mt-5 mb-2">Multiple uploads</h3>
+			<div class="custom-file">
+				<form
+					action="/uploadMultiple"
+					class="form-control"
+					enctype="multipart/form-data"
+					method="POST"
+				>
+					<input
+						type="file"
+						name="multipleImages"
+						class="custom-file-input"
+						multiple
+					/>
+					<label for="customFile" class="custom-file-label">Choose Image</label>
+					<input
+						type="submit"
+						class="btn btn-danger btn-block my-2"
+						value="Upload multiple Images"
+					/>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
