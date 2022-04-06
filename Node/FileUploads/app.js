@@ -27,8 +27,83 @@ app.get("/upload", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-	res.render("index");
+	Picture.find({}).then((images) => {
+		res.render("index", { images: images });
+	});
 });
+
+let storage = multer.diskStorage({
+	destination: "./public/uploads/images",
+	filename: (req, file, cb) => {
+		cb(null, file.originalname);
+	},
+});
+
+let upload = multer({
+	storage: storage,
+	fileFilter: (req, file, cb) => {
+		checkFileType(file, cb);
+	},
+});
+
+function checkFileType(file, cb) {
+	const fileTypes = /jpeg|jpg|png|gif/;
+	const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+
+	if (extName) {
+		return cb(null, true);
+	} else {
+		cb("Error: images only");
+	}
+}
+
+app.post("/uploadsingle", upload.single("singleImage"), (req, res, next) => {
+	const file = req.file;
+	if (!file) {
+		return console.log("Please select an image");
+	}
+	let url = file.path.replace("public", "");
+
+	Picture.findOne({ imgUrl: url })
+		.then((img) => {
+			if (img) {
+				console.log("Duplicate image");
+				return res.redirect("/upload");
+			}
+			Picture.create({ imgUrl: url }).then((img) => {
+				console.log("Image saved to DB");
+				res.redirect("/");
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
+app.post(
+	"/uploadmultiple",
+	upload.array("multipleImages"),
+	(req, res, next) => {
+		const files = req.files;
+		if (!files) {
+			return console.log("Please select images");
+		}
+		files.forEach((file) => {
+			let url = file.path.replace("public", "");
+			Picture.find({ imgUrl: url })
+				.then(async (img) => {
+					if (img) {
+						return console.log("Duplicate image");
+					}
+					await Picture.create({ imgUrl: url });
+				})
+				.catch((err) => {
+					return console.log(error);
+				});
+		});
+		res.redirect("/");
+	}
+);
 
 app.listen(3000, () => {
 	console.log("Server started at port 3000");
