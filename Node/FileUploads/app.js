@@ -4,6 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const methodOverride = require("method-override");
+const fs = require("fs");
 
 mongoose.connect("mongodb://localhost:27017/images", {
 	useNewUrlParser: true,
@@ -104,6 +105,23 @@ app.post(
 		res.redirect("/");
 	}
 );
+
+app.delete("/delete/:id", (req, res) => {
+	let searchQuery = { _id: req.params.id };
+
+	Picture.findOne(searchQuery)
+		.then((img) => {
+			fs.unlink(__dirname + "/public/" + img.imgUrl, (err) => {
+				if (err) return console.log(error);
+				Picture.deleteOne(searchQuery).then((img) => {
+					res.redirect("/");
+				});
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
 
 app.listen(3000, () => {
 	console.log("Server started at port 3000");
