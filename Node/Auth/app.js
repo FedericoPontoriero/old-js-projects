@@ -1,3 +1,4 @@
+//Module importation
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -7,15 +8,17 @@ const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const session = require("express-session");
 
+//Config
 dotenv.config({ path: "./config.env" });
 
+//Database connection
 mongoose.connect(process.env.DATABASE_LOCAL, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,
 });
 
-//Middlewares for session
+//Middleware for session
 app.use(
 	session({
 		secret: "Just a simple login/signup app",
