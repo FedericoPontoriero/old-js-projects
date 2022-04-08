@@ -1,3 +1,4 @@
+//Module importation
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -6,23 +7,27 @@ const multer = require("multer");
 const methodOverride = require("method-override");
 const fs = require("fs");
 
+//DB connection
 mongoose.connect("mongodb://localhost:27017/images", {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,
 });
 
+//Mongo schema
 let imageSchema = new mongoose.Schema({
 	imgUrl: String,
 });
 
 let Picture = mongoose.model("Picture", imageSchema);
 
+//Middlewares
 app.set("views", path.join(__dirname, "views"));
 app.use("view engine", "ejs");
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
+//Get routes
 app.get("/upload", (req, res) => {
 	res.render("upload");
 });
@@ -32,7 +37,8 @@ app.get("/", (req, res) => {
 		res.render("index", { images: images });
 	});
 });
-
+ˆ;
+//Multer storage
 let storage = multer.diskStorage({
 	destination: "./public/uploads/images",
 	filename: (req, file, cb) => {
@@ -47,6 +53,7 @@ let upload = multer({
 	},
 });
 
+//Validation for file type
 function checkFileType(file, cb) {
 	const fileTypes = /jpeg|jpg|png|gif/;
 	const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
@@ -58,6 +65,7 @@ function checkFileType(file, cb) {
 	}
 }
 
+//Post routes
 app.post("/uploadsingle", upload.single("singleImage"), (req, res, next) => {
 	const file = req.file;
 	if (!file) {
@@ -106,6 +114,7 @@ app.post(
 	}
 );
 
+//Delete route
 app.delete("/delete/:id", (req, res) => {
 	let searchQuery = { _id: req.params.id };
 
@@ -123,6 +132,7 @@ app.delete("/delete/:id", (req, res) => {
 		});
 });
 
+//Server
 app.listen(3000, () => {
 	console.log("Server started at port 3000");
 });
