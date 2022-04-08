@@ -1,15 +1,18 @@
 //Module importation
-const express = require("express");
+const express = require('express');
 const app = express();
-const path = require("path");
-const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
-const flash = require("connect-flash");
-const session = require("express-session");
+const path = require('path');
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session');
+
+//Requiring user route
+const userRoute = require('./routes/users');
 
 //Config
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: './config.env' });
 
 //Database connection
 mongoose.connect(process.env.DATABASE_LOCAL, {
@@ -21,7 +24,7 @@ mongoose.connect(process.env.DATABASE_LOCAL, {
 //Middleware for session
 app.use(
 	session({
-		secret: "Just a simple login/signup app",
+		secret: 'Just a simple login/signup app',
 		resave: true,
 		saveUninitialized: true,
 	})
@@ -32,15 +35,17 @@ app.use(flash());
 
 //setting middleware globally
 app.use((req, res) => {
-	res.locals.success_msg = req.flash("success_msg");
-	res.locals.error_msg = req.flash("error_msg");
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
 	next();
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(userRoute);
 
 app.listen(process.env.PORT, () => {
-	console.log("Server started");
+	console.log('Server started');
 });
