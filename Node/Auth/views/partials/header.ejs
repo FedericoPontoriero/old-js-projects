@@ -25,8 +25,11 @@
 			>
 				<div class="mr-5">
 					<ul class="navbar-nav mr-auto mr-0">
+						<%if(currentUser) { %>
 						<li class="nav-item">
-							<a href="#" class="nav-link text-white"><b>Username</b></a>
+							<a href="#" class="nav-link text-white"
+								><b><%= currentUser.name %> ></b></a
+							>
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link text-white"><b>Change Password</b></a>
@@ -34,7 +37,10 @@
 						<li class="nav-item">
 							<a href="/logout" class="nav-link text-white"><b>Logout</b></a>
 						</li>
+						<% } %>
 					</ul>
 				</div>
 			</div>
 		</nav>
+	</body>
+</html>
