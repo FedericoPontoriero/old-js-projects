@@ -5,6 +5,7 @@ const User = require('../models/userModel');
 const crypto = require('crypto');
 const async = require('async');
 const nodemailer = require('nodemailer');
+const { route } = require('express/lib/application');
 
 //Checks if user is authenticated
 function isAuthenticated(req, res, next) {
@@ -28,7 +29,7 @@ router.get('/dashboard', isAuthenticated, (req, res) => {
 	res.render('dashboard');
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', isAuthenticated, (req, res) => {
 	req.logOut();
 	req.flash('success_msg', 'You have been logged out');
 	res.redirect('/login');
@@ -54,6 +55,10 @@ router.get('/reset/:token', (req, res) => {
 				res.redirect('/forgot');
 			}),
 	});
+});
+
+route.get('/password/change', isAuthenticated, (req, res) => {
+	res.render('changePassword');
 });
 
 //Post routes
@@ -85,6 +90,32 @@ router.post('/signUp', (req, res) => {
 			res.redirect('/login');
 		});
 	});
+});
+
+router.post('/password/change', (req, res) => {
+	if (req.body.passsword !== req.body.confirmpassword) {
+		req.flash('error_msg', 'Passwords must coincide. Try again.');
+		res.redirect('/password/change');
+	}
+	User.findOne({ email: req.user.email })
+		.then(user => {
+			user.setPassword(req.body.password, err => {
+				user
+					.save()
+					.then(user => {
+						req.flash('error_msg', 'Password changed successfully');
+						res.redirect('/dashboard');
+					})
+					.catch(err => {
+						req.flash('error_msg', 'ERROR: ' + err);
+						res.redirect('/password/change');
+					});
+			});
+		})
+		.catch(err => {
+			req.flash('error_msg', 'ERROR: ' + err);
+			res.redirect('/password/change');
+		});
 });
 
 //Routes to handle forgot password
@@ -171,7 +202,7 @@ router.post('/reset/:token', (req, res) => {
 							req.flash('error_msg', 'Password reset token is invalid');
 							res.redirect('/forgot');
 						}
-						if (req.body.password !== req.body.confirm - password) {
+						if (req.body.password !== req.body.confirmpassword) {
 							req.flash('error_msg', 'Passwords must be the same');
 							return res.redirect('/forgot');
 						}
