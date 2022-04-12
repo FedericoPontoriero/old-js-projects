@@ -158,4 +158,67 @@ router.post('/forgot', (req, res, next) => {
 	);
 });
 
+router.post('/reset/:token', (req, res) => {
+	async.waterfall(
+		[
+			done => {
+				User.findOne({
+					resetPasswordToken: req.params.token,
+					resetPasswordExpires: { $gt: Date.now() },
+				})
+					.then(user => {
+						if (!user) {
+							req.flash('error_msg', 'Password reset token is invalid');
+							res.redirect('/forgot');
+						}
+						if (req.body.password !== req.body.confirm - password) {
+							req.flash('error_msg', 'Passwords must be the same');
+							return res.redirect('/forgot');
+						}
+
+						user.setPassword(req.body.password, err => {
+							user.resetPasswordToken = undefined;
+							user.resetPasswordExpires = undefined;
+							user.save(err => {
+								req.logIn(user, err => {
+									done(err, user);
+								});
+							});
+						});
+					})
+					.catch(err => {
+						req.flash('error_msg', 'ERROR: ' + err);
+						res.redirect('/forgot');
+					});
+			},
+			user => {
+				let smptTransport = nodemailer.createTransport({
+					service: 'Gmail',
+					auth: {
+						user: process.env.GMAIL_EMAIL,
+						pass: process.env.GMAIL_PASSWORD,
+					},
+				});
+
+				let mailOptions = {
+					to: user.email,
+					from: 'Fede fedeponto@gmail.com',
+					subject: 'Your password is changed',
+					text: `Hello, ${user.name}. \n\n This is a confirmation that the password for your account: ${user.email} has been changed.`,
+				};
+				smptTransport.sendMail(mailOptions, err => {
+					req.flash(
+						'success_msg',
+						'Your password has been changed successfully'
+					);
+					res.redirect('/login');
+				});
+			},
+		],
+		err => {
+			res.redirect('/login');
+		}
+	);
+});
+
 module.exports = router;
