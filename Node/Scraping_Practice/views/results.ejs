@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/stylesheets/design.css" />
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700&display=swap"
+		/>
+		<title>Movie app</title>
+	</head>
+	<body>
+		<h1 id="searchHeading">
+			Search results <span style="color: gray"></span><%=
+			data["title"].toUpperCase() %>
+		</h1>
+		<div class="card mb-5 w-75">
+			<div class="row no-gutters">
+				<div class="col-md-4">
+					<img class="card-img img-fluid" src="<%= data["imgUrl"] %>" alt="" />
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						<h2 class="card-title">
+							<b><%= data["title"] %> </b><%= data["releaseDate"] %>
+						</h2>
+						<hr />
+						<h4 class="mb-2">Overview:</h4>
+						<p class="card-text"><%= data["overview"] %></p>
+						<hr />
+						<p class="card-text"><b>User Score: </b><%= data["userScore"] %></p>
+						<hr />
+						<h4 class="mb-3">Featured Crew:</h4>
+
+						<% data['crew'].forEach((crew) => {
+
+						<p class="ml-2"><b><%= crew.name %></b><%= crew.role %></p>
+						}) %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
