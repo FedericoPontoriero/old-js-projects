@@ -1,4 +1,4 @@
-// Use with themoviedb.org links
+// Use with themoviedb.org links only
 
 const express = require('express');
 const app = express();
