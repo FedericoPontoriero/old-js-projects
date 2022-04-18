@@ -1,15 +1,15 @@
-const { Socket } = require("net");
-const readline = require("readline").createInterface({
+const { Socket } = require('net');
+const readline = require('readline').createInterface({
 	input: process.stdin,
 	output: process.stdout,
 });
 
-const error = (message) => {
+const error = message => {
 	console.log(message);
 	process.exit(1);
 };
 
-const END = "END";
+const END = 'END';
 
 const connect = (host, port) => {
 	console.log(`Connecting to ${host}:${port}`);
@@ -18,31 +18,31 @@ const connect = (host, port) => {
 
 	socket.connect({ host, port });
 
-	socket.setEncoding("utf-8");
+	socket.setEncoding('utf-8');
 
-	socket.on("connect", () => {
-		console.log("Connected");
+	socket.on('connect', () => {
+		console.log('Connected');
 
-		readline.question("Choose your username: ", (username) => {
+		readline.question('Choose your username: ', username => {
 			socket.write(username);
 			console.log(`Type any message to send it, type ${END} to finish`);
 		});
-		readline.on("line", (message) => {
+		readline.on('line', message => {
 			socket.write(message);
 			if (message === END) {
 				socket.end();
-				console.log("Disconnected");
+				console.log('Disconnected');
 			}
 		});
 
-		socket.on("data", (data) => {
+		socket.on('data', data => {
 			console.log(data);
 		});
 	});
 
-	socket.on("error", (err) => error(err.message));
+	socket.on('error', err => error(err.message));
 
-	socket.on("close", () => {
+	socket.on('close', () => {
 		// This is for windows
 		process.exit(0);
 	});
@@ -61,7 +61,7 @@ const main = () => {
 
 	connect(host, port);
 };
-
+// For importation cases
 if (require.main == module) {
 	main();
 }
