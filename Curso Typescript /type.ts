@@ -74,4 +74,29 @@ type Flags = { [K in Keys]: boolean };
 // Conditional types
 // T extends U ? X : Y
 
-// Assert signatures
+// Objects
+function createUser({ name, isPaid }: { name: string; isPaid: boolean }) {
+    console.log(`Hello, ${name}`);
+    if (isPaid) console.log("You are a premium user");
+    console.log("Want to become a premium user?");
+}
+
+createUser({ name: "fede", isPaid: false });
+
+function createCourse(): { name: string; price: number } {
+    return { name: "react", price: 599 };
+}
+
+type User = {
+    name: string;
+    email: string;
+    isActive: boolean;
+};
+
+function anotherCreateUser(user: User): User {
+    return { name: "", email: "", isActive: true };
+}
+
+anotherCreateUser({ name: "fede", email: "fede@gmail.com", isActive: true });
+
+export { };
