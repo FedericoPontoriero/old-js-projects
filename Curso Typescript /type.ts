@@ -242,6 +242,7 @@ class SubUser extends UserClass {
 const user = new UserClass("user@gmail.com", "user");
 // user.city = "CABA"; can't access it
 
+// Interfaces
 interface TakePhoto {
     cameraMode: string;
     filter: string;
@@ -272,5 +273,32 @@ class Youtube implements TakePhoto, Story {
         return "story created";
     }
 }
+
+// Abstract classes
+abstract class TakePhoto {
+    // Cannot be instantiated
+    constructor(public cameraMode: string, public filter: string) { }
+
+    abstract getSepia(): void;
+    getReelTime(): number {
+        return 8;
+    }
+}
+
+class Snapchat extends TakePhoto {
+    constructor(
+        public cameraMode: string,
+        public filter: string,
+        public burst: number
+    ) {
+        super(cameraMode, filter);
+    }
+
+    getSepia(): void {
+        console.log("sepia");
+    }
+}
+// If extendeded can be instantiated
+const hl = new Snapchat("camera", "filter", 9);
 
 export { };
