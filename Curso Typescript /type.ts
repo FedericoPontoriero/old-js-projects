@@ -201,7 +201,7 @@ const fede: Admins = {
 // }
 
 class UserClass {
-    private _courseCount = 1;
+    protected _courseCount = 1;
 
     readonly city: string = "CABA";
     constructor(
@@ -230,7 +230,47 @@ class UserClass {
     }
 }
 
+class SubUser extends UserClass {
+    // It cannot access private properties and methods
+    isFamily: boolean = true;
+    // Protected can access
+    changeCourseCount() {
+        this._courseCount = 4;
+    }
+}
+
 const user = new UserClass("user@gmail.com", "user");
 // user.city = "CABA"; can't access it
+
+interface TakePhoto {
+    cameraMode: string;
+    filter: string;
+    burst: number;
+}
+
+interface Story {
+    createStory(): string;
+}
+
+class Instagram implements TakePhoto {
+    constructor(
+        public cameraMode: string,
+        public filter: string,
+        public burst: number
+    ) { }
+}
+
+class Youtube implements TakePhoto, Story {
+    constructor(
+        public cameraMode: string,
+        public filter: string,
+        public burst: number,
+        public short: string
+    ) { }
+
+    createStory(): string {
+        return "story created";
+    }
+}
 
 export { };
