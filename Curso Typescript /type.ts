@@ -253,26 +253,26 @@ interface Story {
     createStory(): string;
 }
 
-class Instagram implements TakePhoto {
-    constructor(
-        public cameraMode: string,
-        public filter: string,
-        public burst: number
-    ) { }
-}
+// class Instagram implements TakePhoto {
+//     constructor(
+//         public cameraMode: string,
+//         public filter: string,
+//         public burst: number
+//     ) { }
+// }
 
-class Youtube implements TakePhoto, Story {
-    constructor(
-        public cameraMode: string,
-        public filter: string,
-        public burst: number,
-        public short: string
-    ) { }
+// class Youtube implements TakePhoto, Story {
+//     constructor(
+//         public cameraMode: string,
+//         public filter: string,
+//         public burst: number,
+//         public short: string
+//     ) { }
 
-    createStory(): string {
-        return "story created";
-    }
-}
+//     createStory(): string {
+//         return "story created";
+//     }
+// }
 
 // Abstract classes
 abstract class TakePhoto {
@@ -300,5 +300,147 @@ class Snapchat extends TakePhoto {
 }
 // If extendeded can be instantiated
 const hl = new Snapchat("camera", "filter", 9);
+
+// Generics
+// function identity(arg: number):number{
+//     // Without generics
+//     return arg;
+// }
+
+const score: Array<number> = [];
+const names: Array<string> = [];
+
+function identityOne(val: boolean | number): boolean | number {
+    return val;
+}
+
+function identityTwo(val: any): any {
+    return val;
+}
+
+function identityThree<Type>(val: Type): Type {
+    return val;
+}
+
+identityThree("");
+
+//Same as three
+function identityFour<T>(val: T): T {
+    return val;
+}
+
+interface Bottle {
+    brand: string;
+    type: number;
+}
+
+function getSearchProducts<T>(products: T[]): T {
+    const myIndex = 3;
+    return products[myIndex];
+}
+
+const getMoreSearchProducts = <T>(products: T[]): T => {
+    const myIndex = 2;
+    return products[myIndex];
+};
+
+interface Database {
+    connection: string;
+    username: string;
+    password: string;
+}
+
+function someFunction<T, U extends Database>(valOne: T, valTwo: U) {
+    return {
+        valOne,
+        valTwo,
+    };
+}
+
+someFunction(3, { connection: "hold", username: "ohl", password: "str" });
+
+interface Usuario {
+    name: string;
+    email: string;
+}
+
+interface Administrador {
+    name: string;
+    email: string;
+    isAdmin: boolean;
+}
+
+function isAdminAccount(account: Usuario | Administrador) {
+    if ("isAdmin" in account) {
+        return account.isAdmin;
+    }
+}
+
+function logValue(x: Date | string) {
+    if (x instanceof Date) {
+        console.log(x.toUTCString());
+    } else {
+        console.log(x.toUpperCase());
+    }
+}
+
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+function isFish(pet: Fish | Bird): pet is Fish {
+    return (pet as Fish).swim !== undefined;
+}
+
+function getFood(pet: Fish | Bird) {
+    if (isFish(pet)) {
+        pet;
+        return "fish food";
+    } else {
+        pet;
+        return "bird food";
+    }
+}
+
+interface Circle {
+    kind: "circle";
+    radius: number;
+}
+
+interface Square {
+    kind: "square";
+    side: number;
+}
+
+interface Rectangle {
+    kind: "rectangle";
+    length: number;
+    width: number;
+}
+
+type Shape = Circle | Square | Rectangle;
+
+// function getTrueShape(shape: Shape) {
+//     if (shape.kind === "circle") {
+//         return Math.PI * shape.radius ** 2;
+//     }
+//     return shape.side * shape.side;
+// }
+
+function getArea(shape: Shape) {
+    switch (shape.kind) {
+        case "circle":
+            return Math.PI * shape.radius ** 2;
+
+        case "square":
+            return shape.side * shape.side;
+
+        case "rectangle":
+            return shape.length * shape.width;
+
+        default:
+            const _defaultForShape: never = shape;
+            return _defaultForShape;
+    }
+}
 
 export { };
