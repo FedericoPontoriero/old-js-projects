@@ -46,6 +46,7 @@ console.log(same([1, 2, 3], [4, 1, 9])); // true
 console.log(same([1, 2, 3], [1, 9])); // false
 console.log(same([1, 2, 1], [4, 4, 1])); // false (must be same frequency)
 
+// Valid anagram function
 function validAnagram(first: string, second: string): boolean {
     if (first.length !== second.length) {
         return false;
@@ -71,3 +72,5 @@ function validAnagram(first: string, second: string): boolean {
 
     return true;
 }
+
+console.log(validAnagram("anagram", "nagaram"));
