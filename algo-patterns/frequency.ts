@@ -30,7 +30,8 @@ function same(arr1: Array<number>, arr2: Array<number>): boolean {
     for (let val of arr2) {
         frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
     }
-    for (let key in frequencyCounter1) {
+    let key: any;
+    for (key in frequencyCounter1) {
         if (!(key ** 2 in frequencyCounter2)) {
             return false;
         }
@@ -44,3 +45,29 @@ function same(arr1: Array<number>, arr2: Array<number>): boolean {
 console.log(same([1, 2, 3], [4, 1, 9])); // true
 console.log(same([1, 2, 3], [1, 9])); // false
 console.log(same([1, 2, 1], [4, 4, 1])); // false (must be same frequency)
+
+function validAnagram(first: string, second: string): boolean {
+    if (first.length !== second.length) {
+        return false;
+    }
+
+    const lookup = {};
+
+    for (let i = 0; i < first.length; i++) {
+        let letter = first[i];
+        // if letter exists, increment, otherwise set to 1
+        lookup[letter] ? (lookup[letter] += 1) : (lookup[letter] = 1);
+    }
+
+    for (let i = 0; i < second.length; i++) {
+        let letter = second[i];
+        // can't find letter or letter is zero then it's not an anagram
+        if (!lookup[letter]) {
+            return false;
+        } else {
+            lookup[letter] -= 1;
+        }
+    }
+
+    return true;
+}

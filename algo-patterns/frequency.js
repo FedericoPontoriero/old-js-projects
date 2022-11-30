@@ -30,7 +30,8 @@ function same(arr1, arr2) {
         var val = arr2_1[_a];
         frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
     }
-    for (var key in frequencyCounter1) {
+    var key;
+    for (key in frequencyCounter1) {
         if (!(Math.pow(key, 2) in frequencyCounter2)) {
             return false;
         }
@@ -43,3 +44,25 @@ function same(arr1, arr2) {
 console.log(same([1, 2, 3], [4, 1, 9])); // true
 console.log(same([1, 2, 3], [1, 9])); // false
 console.log(same([1, 2, 1], [4, 4, 1])); // false (must be same frequency)
+function validAnagram(first, second) {
+    if (first.length !== second.length) {
+        return false;
+    }
+    var lookup = {};
+    for (var i = 0; i < first.length; i++) {
+        var letter = first[i];
+        // if letter exists, increment, otherwise set to 1
+        lookup[letter] ? (lookup[letter] += 1) : (lookup[letter] = 1);
+    }
+    for (var i = 0; i < second.length; i++) {
+        var letter = second[i];
+        // can't find letter or letter is zero then it's not an anagram
+        if (!lookup[letter]) {
+            return false;
+        }
+        else {
+            lookup[letter] -= 1;
+        }
+    }
+    return true;
+}
